@@ -1,0 +1,461 @@
+:root {
+  --paper: #faf7ef;
+  --paper-dim: #f2ede0;
+  --ink: #22262f;
+  --ink-soft: #5b6172;
+  --line: #d9d2bf;
+  --line-strong: #b9b092;
+  --card: #fffdf8;
+  --gold: #a9762c;
+  --gold-deep: #7c5620;
+  --green: #3f6b4f;
+  --green-bg: #e7efe9;
+  --rust: #9c3f30;
+  --rust-bg: #f4e6e2;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SFMono-Regular', monospace;
+
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  background-image: linear-gradient(var(--line) 1px, transparent 1px);
+  background-size: 100% 2.1rem;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* On small screens the ruled-paper backdrop gets busy; drop it */
+@media (max-width: 640px) {
+  body {
+    background-image: none;
+  }
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.app-shell {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 2.75rem 1.5rem 5rem;
+}
+
+/* ---------- Masthead ---------- */
+
+.masthead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 2.25rem;
+}
+
+.masthead h1 {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-size: 2.15rem;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.masthead .tagline {
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  margin-top: 0.35rem;
+}
+
+.masthead .date-stamp {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  text-align: right;
+}
+
+/* ---------- Summary strip ---------- */
+
+.summary-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1px;
+  background: var(--line-strong);
+  border: 1px solid var(--line-strong);
+  margin-bottom: 2.5rem;
+}
+
+.summary-cell {
+  background: var(--card);
+  padding: 1.1rem 1.3rem;
+}
+
+.summary-cell .label {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.4rem;
+}
+
+.summary-cell .value {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.summary-cell .value.total {
+  color: var(--gold-deep);
+}
+
+/* ---------- Layout grid ---------- */
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Panels (receipt style) ---------- */
+
+.panel {
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  position: relative;
+}
+
+.panel::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  height: 3px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--gold) 0,
+    var(--gold) 8px,
+    transparent 8px,
+    transparent 16px
+  );
+}
+
+.panel-header {
+  padding: 1.1rem 1.3rem 0.9rem;
+  border-bottom: 1px dashed var(--line-strong);
+}
+
+.panel-header h2 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.panel-body {
+  padding: 1.3rem;
+}
+
+/* ---------- Form ---------- */
+
+.field {
+  margin-bottom: 1.1rem;
+}
+
+.field label {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.35rem;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--line-strong);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  border-radius: 2px;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--gold);
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 3.2rem;
+}
+
+.error-text {
+  color: var(--rust);
+  font-size: 0.8rem;
+  margin-top: 0.85rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.65rem 1.2rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: transform 0.08s ease;
+  width: 100%;
+}
+
+.btn:hover {
+  background: var(--gold-deep);
+  border-color: var(--gold-deep);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn.secondary {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line-strong);
+  width: auto;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8rem;
+}
+
+.btn.secondary:hover {
+  background: var(--paper-dim);
+  border-color: var(--ink);
+}
+
+.btn.danger {
+  background: transparent;
+  color: var(--rust);
+  border-color: transparent;
+  width: auto;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.8rem;
+}
+
+.btn.danger:hover {
+  background: var(--rust-bg);
+}
+
+/* ---------- Filters ---------- */
+
+.filters {
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.2rem;
+}
+
+.filters select,
+.filters input {
+  border: 1px solid var(--line-strong);
+  background: var(--card);
+  padding: 0.45rem 0.6rem;
+  font-size: 0.85rem;
+  border-radius: 2px;
+  font-family: var(--font-body);
+}
+
+.filters input[type='search'] {
+  flex: 1;
+  min-width: 160px;
+}
+
+/* ---------- Ledger table ---------- */
+
+.ledger {
+  border: 1px solid var(--line-strong);
+  background: var(--card);
+}
+
+.ledger-row {
+  display: grid;
+  grid-template-columns: 90px 1fr 150px 110px 32px;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.ledger-row:last-child {
+  border-bottom: none;
+}
+
+.ledger-row.head {
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  background: var(--paper-dim);
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.ledger-row .date-col {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+.ledger-row .title-col .title {
+  font-weight: 500;
+}
+
+.ledger-row .title-col .notes {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-top: 0.1rem;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  color: var(--ink-soft);
+  width: fit-content;
+}
+
+.amount-col {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  text-align: right;
+  font-weight: 500;
+  color: var(--rust);
+}
+
+.empty-state {
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+.empty-state .mark {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--ink);
+  margin-bottom: 0.4rem;
+}
+
+/* ---------- Breakdown chart panel ---------- */
+
+.breakdown {
+  margin-top: 1.5rem;
+}
+
+.category-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.2rem;
+  margin-top: 0.9rem;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+.category-legend .swatch {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 0.4rem;
+  border-radius: 1px;
+}
+
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.7rem 1.1rem;
+  font-size: 0.85rem;
+  border-radius: 2px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+}
+
+@media (max-width: 560px) {
+  .ledger-row {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'title amount'
+      'date tag'
+      'del del';
+    row-gap: 0.35rem;
+  }
+  .ledger-row.head {
+    display: none;
+  }
+  .ledger-row .date-col {
+    grid-area: date;
+  }
+  .ledger-row .title-col {
+    grid-area: title;
+  }
+  .ledger-row .tag {
+    grid-area: tag;
+  }
+  .ledger-row .amount-col {
+    grid-area: amount;
+  }
+  .ledger-row .del-col {
+    grid-area: del;
+    justify-self: end;
+  }
+}
